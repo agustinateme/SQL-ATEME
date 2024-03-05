@@ -1,4 +1,5 @@
 # SQL-ATEME
+Esta base de datos almacena información relacionada con un sistema de gestión de ventas y tiendas en línea. A continuación se detallan las tablas y sus atributos:
 
 ## Tabla `USUARIOS`
 
