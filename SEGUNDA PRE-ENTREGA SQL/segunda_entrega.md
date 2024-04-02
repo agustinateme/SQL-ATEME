@@ -17,6 +17,7 @@
 **Uso:**
 ```sql
 SELECT calcular_precio_descuento(precio_base, descuento) AS precio_final;
+```
 
 # Función `calcular_total_carrito`
 
@@ -30,7 +31,7 @@ SELECT calcular_precio_descuento(precio_base, descuento) AS precio_final;
 **Uso:**
 ```sql
 SELECT calcular_total_carrito(id_carrito) AS total FROM CARRITO WHERE IDCARRITO = <id_del_carrito>;
-
+```
 
 
 
