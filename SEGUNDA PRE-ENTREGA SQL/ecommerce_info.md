@@ -1,4 +1,4 @@
-## Proyecto de Gestión de Reservas - Trinity Ecommerce
+## Proyecto de Gestión de Ordenes de Venta - Trinity Ecommerce
 
 #### Desarrollado por: Agustina Teme
 ### Problema:
