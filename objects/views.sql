@@ -1,4 +1,5 @@
--- Vista para KPIs de Ordenes de venta:
+USE ECOMDB;
+
 -- Esta vista muestra todos los productos que están actualmente agotados en la tienda
 CREATE VIEW 
 	vista_productos_agotados AS

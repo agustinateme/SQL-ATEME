@@ -1,4 +1,8 @@
-USE TRINITY_ECOMMERCE;
+USE ECOMDB;
+
+DROP PROCEDURE IF EXISTS registrar_usuario;
+DROP PROCEDURE IF EXISTS agregar_producto_al_carrito;
+DROP PROCEDURE IF EXISTS realizar_pedido;
 
 DELIMITER //
 -- Este procedimiento permite registrar un nuevo usuario en la base de datos.
@@ -34,7 +38,7 @@ END;//
 DELIMITER ;
 
 DELIMITER //
--- Este procedimiento permite realizar un pedido, creando una orden de venta y cambiando el estado del carrito a "pedido realizado".
+-- Este procedimiento permite realizar un pedido, creando una orden de venta y cambiando el estado del carrito a true.
 CREATE PROCEDURE realizar_pedido (
     IN id_usuario INT,
     IN direccion_envio VARCHAR(255)

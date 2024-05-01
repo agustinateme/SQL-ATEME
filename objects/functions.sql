@@ -1,5 +1,9 @@
 USE ECOMDB;
 
+DROP FUNCTION IF EXISTS calcular_precio_descuento;
+DROP FUNCTION IF EXISTS calcular_total_carrito;
+DROP FUNCTION IF EXISTS cantidad_orden_de_venta_usuario;
+
 DELIMITER //
 -- Calcula el precio de un producto luego de aplicarle el descuento
 CREATE FUNCTION calcular_precio_descuento(precio_base INT, descuento INT) RETURNS INT
