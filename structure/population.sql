@@ -77,6 +77,21 @@ VALUES
 ('Lucía', 'Fernández', 4, 'Vendedor', 2000, 'lucia@example.com', '000111222', NOW()),
 ('Andrés', 'Martínez', 5, 'Cajero', 1800, 'andres@example.com', '333444555', NOW());
 
+-- Insertar carritos
+INSERT INTO CARRITO (IDUSUARIO, FECHA_CREACION, ESTADO, TOTAL)
+VALUES 
+(1, NOW(), true, 0),
+(2, NOW(), true, 0),
+(3, NOW(), false, 0),
+(4, NOW(), false, 0),
+(5, NOW(), true, 0),
+(6, NOW(), false, 0),
+(7, NOW(), true, 0),
+(8, NOW(), true, 0),
+(9, NOW(), true, 0),
+(10, NOW(), true, 0);
+
+
 -- Insertar órdenes de venta
 INSERT INTO ORDENDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO)
 VALUES 
