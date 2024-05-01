@@ -4,7 +4,7 @@ USE ECOMDB;
 SET GLOBAL local_infile = true;
 
 -- Insertar usuarios
-INSERT INTO USUARIOS (NOMBRE, APELLIDO, EMAIL, DIRECCION, TELEFONO, CONTRASENIA, TIPO_USUARIO, FECHA_REGISTRO, ULTIMO_ACCESO)
+INSERT INTO USUARIO (NOMBRE, APELLIDO, EMAIL, DIRECCION, TELEFONO, CONTRASENIA, TIPO_USUARIO, FECHA_REGISTRO, ULTIMO_ACCESO)
 VALUES 
 ('Juan', 'Perez', 'juan@example.com', 'Calle 123', '123456789', 'contrasenia123', 'cliente', NOW(), NOW()),
 ('Maria', 'Gomez', 'maria@example.com', 'Avenida 456', '987654321', 'contrasenia456', 'cliente', NOW(), NOW()),
@@ -18,7 +18,7 @@ VALUES
 ('Miguel', 'Gómez', 'miguel@example.com', 'Avenida Este', '567890123', 'contraseniahjk', 'cliente', NOW(), NOW());
 
 -- Insertar categorías
-INSERT INTO CATEGORIAS (NOMBRE)
+INSERT INTO CATEGORIA (NOMBRE)
 VALUES 
 ('Electrónica'),
 ('Ropa'),
@@ -32,7 +32,7 @@ VALUES
 ('Automóviles');
 
 -- Insertar subcategorías
-INSERT INTO SUBCATEGORIAS (NOMBRE, IDCATEGORIA)
+INSERT INTO SUBCATEGORIA (NOMBRE, IDCATEGORIA)
 VALUES 
 ('Televisores', 1),
 ('Camisetas', 2),
@@ -46,7 +46,7 @@ VALUES
 ('Coches', 10);
 
 -- Insertar tiendas
-INSERT INTO TIENDAS (NOMBRE, DIRECCION, EMAIL, TELEFONO)
+INSERT INTO TIENDA (NOMBRE, DIRECCION, EMAIL, TELEFONO)
 VALUES 
 ('Tienda A', 'Calle Principal 123', 'tiendaA@example.com', '123456789'),
 ('Tienda B', 'Avenida Central 456', 'tiendaB@example.com', '987654321'),
@@ -55,7 +55,7 @@ VALUES
 ('Tienda E', 'Calle Este 202', 'tiendaE@example.com', '567890123');
 
 -- Insertar productos
-INSERT INTO PRODUCTOS (NOMBRE, PRECIO, IDCATEGORIA, IDSUBCATEGORIA, IDTIENDA, DETALLE, CANTIDAD, STOCK, FECHA_AGREGADO, IMAGENES)
+INSERT INTO PRODUCTO (NOMBRE, PRECIO, IDCATEGORIA, IDSUBCATEGORIA, IDTIENDA, DETALLE, CANTIDAD, STOCK, FECHA_AGREGADO, IMAGENES)
 VALUES 
 ('Televisor LED 50 pulgadas', 500, 1, 1, 1, 'Resolución Full HD', 10, TRUE, NOW(), 'tv1.jpg'),
 ('Camiseta blanca', 20, 2, 2, 2, 'Talla M', 50, TRUE, NOW(), 'camiseta1.jpg'),
@@ -69,7 +69,7 @@ VALUES
 ('Coche deportivo', 50000, 10, 10, 4, 'Color rojo', 2, TRUE, NOW(), 'coche1.jpg');
 
 -- Insertar empleados
-INSERT INTO EMPLEADOS (NOMBRE, APELLIDO, IDTIENDA, PUESTO, SUELDO, EMAIL, TELEFONO, FECHA_CONTRATACION)
+INSERT INTO EMPLEADO (NOMBRE, APELLIDO, IDTIENDA, PUESTO, SUELDO, EMAIL, TELEFONO, FECHA_CONTRATACION)
 VALUES 
 ('Pablo', 'González', 1, 'Vendedor', 2000, 'pablo@example.com', '111222333', NOW()),
 ('Carmen', 'Sánchez', 2, 'Cajero', 1800, 'carmen@example.com', '444555666', NOW()),
@@ -78,7 +78,7 @@ VALUES
 ('Andrés', 'Martínez', 5, 'Cajero', 1800, 'andres@example.com', '333444555', NOW());
 
 -- Insertar órdenes de venta
-INSERT INTO ORDENESDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO)
+INSERT INTO ORDENDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO)
 VALUES 
 (1, NOW(), true, 'Calle Principal', 1),
 (2, NOW(), true, 'Avenida Central', 2),
