@@ -18,7 +18,7 @@ CREATE ROLE role_creacion_usuarios;
 -- ASIGNACIÓN DE PRIVILEGIOS AL ROL role_select_vistas
 GRANT SELECT ON USUARIO TO role_select_vistas;
 GRANT SELECT ON EMPLEADO TO role_select_vistas;
-GRANT SELECT ON RESTAURANTE TO role_select_vistas;
+GRANT SELECT ON TIENDAS TO role_select_vistas;
 GRANT SELECT ON PRODUCTO TO role_select_vistas;
 GRANT SELECT ON ORDENDEVENTA TO role_select_vistas;
 
