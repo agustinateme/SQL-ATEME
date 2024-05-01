@@ -66,7 +66,8 @@ VALUES
 ('Base de maquillaje', 15, 7, 7, 1, 'Tono natural', 30, TRUE, NOW(), 'maquillaje1.jpg'),
 ('El señor de los anillos', 12, 8, 8, 2, 'Edición de bolsillo', 40, TRUE, NOW(), 'lotr1.jpg'),
 ('Álbum de música', 10, 9, 9, 3, 'Artista variado', 50, TRUE, NOW(), 'album1.jpg'),
-('Coche deportivo', 50000, 10, 10, 4, 'Color rojo', 2, TRUE, NOW(), 'coche1.jpg');
+('Coche deportivo', 50000, 10, 10, 4, 'Color rojo', 2, TRUE, NOW(), 'coche1.jpg'),
+('Championes', 2000, 2, 2, 4, 'Color rojo', 0, FALSE, NOW(), 'champion1.jpg');
 
 -- Insertar empleados
 INSERT INTO EMPLEADO (NOMBRE, APELLIDO, IDTIENDA, PUESTO, SUELDO, EMAIL, TELEFONO, FECHA_CONTRATACION)
