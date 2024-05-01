@@ -14,7 +14,7 @@ CREATE PROCEDURE registrar_usuario (
 BEGIN
     INSERT INTO USUARIOS (NOMBRE, APELLIDO, EMAIL, DIRECCION, TELEFONO, CONTRASENIA, TIPO_USUARIO, FECHA_REGISTRO, ULTIMO_ACCESO)
     VALUES (nombre_usuario, apellido_usuario, email_usuario, direccion_usuario, telefono_usuario, contrasenia_usuario, tipo_usuario, NOW(), NOW());
-END;
+END;//
 DELIMITER ;
 
 DELIMITER //
@@ -30,7 +30,7 @@ BEGIN
     SELECT IDCARRITO INTO id_carrito FROM CARRITO WHERE IDUSUARIO = id_usuario AND ESTADO = TRUE;
     -- Insertar detalle del carrito
     INSERT INTO DETALLE_CARRITO (IDCARRITO, IDPRODUCTO, CANTIDAD) VALUES (id_carrito, id_producto, cantidad);
-END;
+END;//
 DELIMITER ;
 
 DELIMITER //
@@ -47,5 +47,5 @@ BEGIN
     INSERT INTO ORDENESDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO) VALUES (id_usuario, NOW(), 'Pedido realizado', direccion_envio, id_carrito);
     -- Cambiar estado del carrito
     UPDATE CARRITO SET ESTADO = FALSE WHERE IDCARRITO = id_carrito;
-END;
+END;//
 DELIMITER ;

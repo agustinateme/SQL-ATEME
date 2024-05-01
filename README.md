@@ -1,3 +1,8 @@
+<center>
+<img src="./EcomDB_Cover.jpg" style="width: 100% ; aspect-ratio:16/9">
+</center>
+
+
 # SQL-ATEME
 Esta base de datos almacena información relacionada con un sistema de gestión de ventas y tiendas en línea. A continuación se detallan las tablas y sus atributos:
 

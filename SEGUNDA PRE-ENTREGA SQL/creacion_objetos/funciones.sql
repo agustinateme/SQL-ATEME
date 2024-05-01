@@ -7,7 +7,7 @@ BEGIN
     DECLARE precio_final INT;
     SET precio_final = precio_base - (precio_base * descuento / 100);
     RETURN precio_final;
-END;
+END;//
 DELIMITER ;
 
 DELIMITER //
@@ -21,6 +21,6 @@ BEGIN
     JOIN PRODUCTOS p ON dc.IDPRODUCTO = p.IDPRODUCTO
     WHERE dc.IDCARRITO = id_carrito;
     RETURN total;
-END;
+END;//
 DELIMITER ;
 
