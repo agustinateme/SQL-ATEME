@@ -337,11 +337,74 @@ SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
 * Se actualiza un registro de detalle carrito, y se actualiza el total en carrito
 
 
+## Documentación de Procedimientos Almacenados
+
+### Procedimiento: registrar_usuario
+
+**Descripción:** Este procedimiento permite registrar un nuevo usuario en la base de datos.
+
+**Parámetros:**
+* **nombre_usuario:** El nombre del usuario a registrar.
+* **apellido_usuario:** El apellido del usuario a registrar.
+* **email_usuario:** El correo electrónico del usuario a registrar.
+* **direccion_usuario:** La dirección del usuario a registrar.
+* **telefono_usuario:** El número de teléfono del usuario a registrar.
+* **contrasenia_usuario:** La contraseña del usuario a registrar.
+* **tipo_usuario:** El tipo de usuario 
+
+**Retorno:** No tiene retorno explícito.
+
+**Ejemplo de uso:**
+
+```sql
+CALL registrar_usuario('John', 'Doe', 'john@example.com', '123 Main St', '5551234', 'password123', 'cliente');
+```
+
+### Procedimiento: agregar_producto_al_carrito
+
+**Descripción:**  Este procedimiento permite agregar un producto al carrito de un usuario.
+
+**Parámetros:**
+* **id_usuario:** El ID del usuario al que se le agregará el producto al carrito.
+* **id_producto:** El ID del producto que se agregará al carrito.
+* **cantidad:** La cantidad del producto que se agregará al carrito.
+
+**Retorno:** No tiene retorno explícito.
+
+**Ejemplo de uso:**
+
+```sql
+CALL agregar_producto_al_carrito(1, 101, 2);
+```
+
+### Procedimiento: realizar_pedido
+
+**Descripción:**  Este procedimiento permite realizar un pedido, creando una orden de venta y cambiando el estado del carrito a true.
+
+**Parámetros:**
+* **id_usuario:** El ID del usuario que realiza el pedido.
+* **direccion_envio:** La dirección de envío para el pedido.
+
+**Retorno:** No tiene retorno explícito.
+
+**Ejemplo de uso:**
+
+```sql
+CALL realizar_pedido(1, '456 Oak St');
+```
+
 ## Roles y permisos
 
 ## Back up de la base de datos
 
+Se puede generar un comando en el archivo `make backup` que me permite ejecutar un backup de manera manual.
+
 ## Herramientas y tecnologias usadas
+* Makefile (para generar una interfaz sencilla de procesos)
+* Docker (para generar un container)
+* MySQL (Motor de bases de datos `version: latest`)
+* MySQL Workbench (Interfaz grafica)
+* Mockaroo (para otorgar datos ficticios)
 
 ## Como levantar el proyecto en CodeSpaces GitHub
 * env: Archivo con contraseñas y data secretas
@@ -349,3 +412,10 @@ SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
 * docker-compose.yml: Permite generar las bases de datos en forma de contenedores
 
 #### Pasos para arrancar el proyecto
+
+* En la terminal de linux escribir :
+    - `make` _si te da un error de que no conexion al socket, volver al correr el comando `make`_
+    - `make clean-db` limpiar la base de datos
+    - `make test-db` para mirar los datos de cada tabla
+    - `make backup-db` para realizar un backup de mi base de datos
+    - `make access-db` para acceder a la base de datos
