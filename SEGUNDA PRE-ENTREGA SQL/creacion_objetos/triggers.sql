@@ -9,39 +9,24 @@ CREATE TABLE HISTORIAL_ORDEN_VENTA (
     FOREIGN KEY (IDORDEN) REFERENCES ORDENDEVENTA(IDORDEN)
 );
 
+-- Este trigger verifica si el correo electrónico de un usuario es único al insertar un nuevo usuario
 DELIMITER //
-CREATE TRIGGER actualizar_cantidad_producto
-AFTER INSERT ON ORDENDEVENTA
+CREATE TRIGGER usuario_email_unico
+BEFORE INSERT ON USUARIO
 FOR EACH ROW
 BEGIN
-    DECLARE cantidad_producto INT;
-    DECLARE mensaje VARCHAR(255);
+    DECLARE email_count INT;
     
-    -- Obtenemos la cantidad del producto
-    SELECT p.CANTIDAD INTO cantidad_producto
-    FROM PRODUCTO p
-    JOIN DETALLE_CARRITO dc ON p.IDPRODUCTO = dc.IDPRODUCTO
-    WHERE dc.IDCARRITO = NEW.IDCARRITO;
+    SELECT COUNT(1) INTO correo_count
+        FROM USUARIO
+    WHERE EMAIL = NEW.EMAIL;
     
-    -- Verificamos si la orden de venta fue realizada y el producto tiene stock
-    IF NEW.ESTADO = 'true' THEN
-        IF cantidad_producto >= NEW.CANTIDAD THEN
-            -- Actualizamos la cantidad del producto
-            UPDATE PRODUCTO
-            SET CANTIDAD = CANTIDAD - NEW.CANTIDAD
-            WHERE IDPRODUCTO = (SELECT IDPRODUCTO FROM DETALLE_CARRITO WHERE IDCARRITO = NEW.IDCARRITO);
-        ELSE
-            SET mensaje = CONCAT('No hay suficiente stock del producto ', (SELECT IDPRODUCTO FROM DETALLE_CARRITO WHERE IDCARRITO = NEW.IDCARRITO));
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = mensaje;
-        END IF;
-    ELSE
-        SET mensaje = 'La orden de venta no se realizó.';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = mensaje;
+    IF email_count > 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El correo electrónico ya está en uso.';
     END IF;
-END
+END 
 //
 DELIMITER ;
-
 
 DELIMITER //
 -- Este trigger registra los cambios en el estado de las órdenes de venta en un historial.

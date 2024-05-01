@@ -276,36 +276,65 @@ SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
 
 ## Documentación de Triggers
 
-### Trigger: actualizar_stock_al_agregar_producto
+### Trigger: usuario_email_unico
 
-**Descripción:** Este trigger se encarga de actualizar automáticamente el stock de un producto en la tabla PRODUCTO cada vez que se agrega ese producto al carrito en la tabla DETALLE_CARRITO.
+**Descripción:** Este trigger verifica si el correo electrónico de un usuario es único al insertar un nuevo usuario
 
 **Detalles:**
 
-* **Tabla afectada:** PRODUCTO
-* **Acción:** INSERT (Después de cada inserción en la tabla DETALLE_CARRITO, este trigger se activa para actualizar el stock del producto correspondiente en la tabla PRODUCTO.)
-* **Información registrada:** No se registra información adicional en otra tabla. El trigger actualiza directamente el stock del producto en la tabla PRODUCTO.
+* **Tabla afectada:** USUARIO
+* **Acción:** INSERT 
 
 **Ejemplo:** 
-*Supongamos que tenemos un producto en la tabla PRODUCTO con IDPRODUCTO igual a 1 y una cantidad inicial de 10 unidades en stock. Ahora, un cliente agrega 2 unidades de ese producto a su carrito.
-* **Antes de que el cliente agregue el producto al carrito:** Stock del producto con IDPRODUCTO igual a 1: 10 unidades
-* **Después de que el cliente agregue el producto al carrito:** Stock del producto con IDPRODUCTO igual a 1: 8 unidades (10 - 2)
+* Se intenta insertar un nuevo usuario con un correo electrónico que ya está en uso.
+* El trigger genera error y la inserción no se realiza.
+
+### Trigger: registro_cambios_orden_venta
+
+**Descripción:** Este trigger registra los cambios en el estado de las órdenes de venta en un historial.
+
+**Detalles:**
+
+* **Tabla afectada:** HISTORIAL_ORDEN_VENTA
+* **Acción:** INSERT 
+
+**Ejemplo:** 
+* Se cambia el estado de una orden de venta de false a true, efectuando que se realizó una compra
+* Con el trigger se ingresa esta orden de venta que cambió de estado en el historial de ordendes de venta
  
+### Trigger: after_insert_detalle_carrito
 
-### Trigger: actualizar_total_carrito
-
-**Descripción:** Este trigger actualiza el total del carrito cuando se modifica la cantidad de un producto en el carrito.
+**Descripción:** Trigger para actualizar el total de un carrito, después de una inserción en la tabla DETALLE_CARRITO
 
 **Detalles:**
 
 * **Tabla afectada:** CARRITO
-* **Acción:** UPDATE (Después de cada actualización en la tabla DETALLE_CARRITO, este trigger se activa para recalcular y actualizar el total del carrito correspondiente en la tabla CARRITO.)
-* **Información registrada:** 
-
+* **Acción:** UPDATE
 **Ejemplo:** 
-* ****
-* **** 
- 
+* Se incerta un producto al carrito, esto se registra en detalle_carrito y se actualiza el total en carrito
+
+### Trigger: after_delete_detalle_carrito
+
+**Descripción:** Trigger para actualizar el total de un carrito, después de una eliminación en la tabla DETALLE_CARRITO
+
+**Detalles:**
+
+* **Tabla afectada:** CARRITO
+* **Acción:** UPDATE
+**Ejemplo:** 
+* Se elimina un registro de detalle carrito (Esto elimina totalmente un producto del carrito), y se actualiza el total en carrito
+
+
+### Trigger: after_update_detalle_carrito
+
+**Descripción:** Trigger para actualizar el total de un carrito, después de una actualización en la tabla DETALLE_CARRITO
+
+**Detalles:**
+
+* **Tabla afectada:** CARRITO
+* **Acción:** UPDATE
+**Ejemplo:** 
+* Se actualiza un registro de detalle carrito, y se actualiza el total en carrito
 
 
 ## Roles y permisos
