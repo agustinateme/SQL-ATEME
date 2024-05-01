@@ -7,6 +7,8 @@ DROP FUNCTION IF EXISTS cantidad_orden_de_venta_usuario;
 DELIMITER //
 -- Calcula el precio de un producto luego de aplicarle el descuento
 CREATE FUNCTION calcular_precio_descuento(precio_base INT, descuento INT) RETURNS INT
+DETERMINISTIC
+READS SQL DATA
 BEGIN
     DECLARE precio_final INT;
     SET precio_final = precio_base - (precio_base * descuento / 100);
@@ -17,6 +19,8 @@ DELIMITER ;
 DELIMITER //
 -- Calcula el precio total de un carrito
 CREATE FUNCTION calcular_total_carrito(id_carrito INT) RETURNS INT
+DETERMINISTIC
+READS SQL DATA
 BEGIN
     DECLARE total INT;
     SELECT SUM(p.PRECIO * dc.CANTIDAD) INTO total

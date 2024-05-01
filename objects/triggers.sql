@@ -17,7 +17,7 @@ FOR EACH ROW
 BEGIN
     DECLARE email_count INT;
     
-    SELECT COUNT(1) INTO correo_count
+    SELECT COUNT(1) INTO email_count
         FROM USUARIO
     WHERE EMAIL = NEW.EMAIL;
     
