@@ -80,19 +80,19 @@ VALUES
 -- Insertar órdenes de venta
 INSERT INTO ORDENESDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO)
 VALUES 
-(1, NOW(), 'Pendiente', 'Calle Principal', 1),
-(2, NOW(), 'Entregado', 'Avenida Central', 2),
-(3, NOW(), 'Pendiente', 'Carrera Norte', 3),
-(4, NOW(), 'Entregado', 'Avenida Sur', 4),
-(5, NOW(), 'Pendiente', 'Calle Este', 5),
-(6, NOW(), 'Pendiente', 'Calle Secundaria', 6),
-(7, NOW(), 'Pendiente', 'Avenida Norte', 7),
-(8, NOW(), 'Pendiente', 'Calle 456', 8),
-(9, NOW(), 'Pendiente', 'Calle 789', 9),
-(10, NOW(), 'Pendiente', 'Avenida Este', 10);
+(1, NOW(), true, 'Calle Principal', 1),
+(2, NOW(), true, 'Avenida Central', 2),
+(3, NOW(), false, 'Carrera Norte', 3),
+(4, NOW(), false, 'Avenida Sur', 4),
+(5, NOW(), true, 'Calle Este', 5),
+(6, NOW(), false, 'Calle Secundaria', 6),
+(7, NOW(), true, 'Avenida Norte', 7),
+(8, NOW(), true, 'Calle 456', 8),
+(9, NOW(), true, 'Calle 789', 9),
+(10, NOW(), true, 'Avenida Este', 10);
 
-LOAD DATA LOCAL INFILE './SEGUNDA PRE-ENTREGA SQL/data_csv/ordenesDeVentas.csv'
-INTO TABLE ORDENESDEVENTA
+LOAD DATA LOCAL INFILE './structure/data_csv/ordenDeVenta.csv'
+INTO TABLE ORDENDEVENTA
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
