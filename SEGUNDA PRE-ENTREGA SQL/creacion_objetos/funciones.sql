@@ -1,4 +1,4 @@
-USE TRINITY_ECOMMERCE;
+USE ECOMDB;
 
 DELIMITER //
 -- Calcula el precio de un producto luego de aplicarle el descuento
@@ -18,9 +18,26 @@ BEGIN
     SELECT SUM(p.PRECIO * dc.CANTIDAD)
     INTO total
     FROM DETALLE_CARRITO dc
-    JOIN PRODUCTOS p ON dc.IDPRODUCTO = p.IDPRODUCTO
+    JOIN PRODUCTO p ON dc.IDPRODUCTO = p.IDPRODUCTO
     WHERE dc.IDCARRITO = id_carrito;
     RETURN total;
 END;//
 DELIMITER ;
 
+-- Funcion para contar las ordenes de venta de un cliente en determinado tiempo
+DELIMITER //
+CREATE FUNCTION cantidad_orden_de_venta_usuario (usuario_id INT, fecha_inicio DATETIME, fecha_fin DATETIME) RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+	DECLARE orden_count INT;
+    
+    SELECT COUNT(*) INTO orden_count
+    FROM ORDENDEVENTA
+    WHERE IDUSUARIO = usuario_id
+    AND FECHA >= fecha_inicio
+    AND FECHA <= fecha_fin;
+
+	RETURN orden_count;
+END //
+DELIMITER ;

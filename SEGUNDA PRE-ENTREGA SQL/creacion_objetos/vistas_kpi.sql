@@ -2,7 +2,12 @@
 -- Esta vista muestra todos los productos que están actualmente agotados en la tienda
 CREATE VIEW 
 	vista_productos_agotados AS
-SELECT * FROM PRODUCTOS WHERE STOCK = FALSE;
+SELECT 
+	IDPRODUCTO, NOMBRE, STOCK
+FROM 
+	PRODUCTO
+WHERE 
+	STOCK = FALSE;
 
 -- Esta vista muestra el monto total de ventas por mes basado en los productos comprados en cada orden. 
 CREATE VIEW vista_ventas_mensuales AS
@@ -17,33 +22,46 @@ JOIN
     PRODUCTO P ON DC.IDPRODUCTO = P.IDPRODUCTO
 GROUP BY 
     MONTH(OV.FECHA_CREACION);
-    
--- Esta vista proporciona una lista de productos junto con sus categorías y subcategorías correspondientes.
-CREATE VIEW vista_productos_por_categoria AS
-SELECT 
-    C.NOMBRE AS CATEGORIA,
-    SC.NOMBRE AS SUBCATEGORIA,
-    P.*
-FROM 
-    PRODUCTO P
-JOIN 
-    CATEGORIA C ON P.IDCATEGORIA = C.IDCATEGORIA
-JOIN 
-    SUBCATEGORIA SC ON P.IDSUBCATEGORIA = SC.IDSUBCATEGORIA;
-
-    
+        
 -- Esta vista muestra una lista de todos los empleados agrupados por tienda.
 CREATE VIEW vista_empleados_por_tienda AS
 SELECT 
     T.NOMBRE AS TIENDA,
     E.NOMBRE,
     E.APELLIDO,
-    E.PUESTO,
-    E.SUELDO,
-    E.EMAIL,
-    E.TELEFONO,
-    E.FECHA_CONTRATACION
+    E.PUESTO
 FROM 
     EMPLEADO E
 JOIN 
     TIENDA T ON E.IDTIENDA = T.IDTIENDA;
+ 
+-- Esta vista proporciona información sobre las órdenes de venta pendientes en el sistema y el estado de la orden.
+CREATE VIEW vista_transacciones_pendientes AS
+SELECT 
+    OV.IDORDEN AS ID_ORDEN,
+    U.EMAIL AS USUARIO,
+    OV.FECHA_CREACION AS FECHA_ORDEN,
+    CASE 
+        WHEN OV.ESTADO = TRUE THEN 'completado' 
+        ELSE 'pendiente' 
+    END AS ESTADO
+FROM 
+    ORDENDEVENTA OV
+JOIN 
+    USUARIO U ON OV.IDUSUARIO = U.IDUSUARIO
+WHERE 
+    OV.ESTADO = FALSE;
+    
+-- Esta vista proporciona información sobre la cantidad de productos disponibles en cada tienda.
+CREATE VIEW vista_stock_por_tienda AS
+SELECT 
+    T.NOMBRE AS TIENDA,
+    COUNT(P.IDPRODUCTO) AS CANTIDAD_PRODUCTOS
+FROM 
+    TIENDA T
+LEFT JOIN 
+    PRODUCTO P ON T.IDTIENDA = P.IDTIENDA
+WHERE 
+    P.STOCK = TRUE
+GROUP BY 
+    T.IDTIENDA;

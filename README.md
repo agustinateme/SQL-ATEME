@@ -18,7 +18,7 @@ hasta la administración de pedidos y envíos. El sistema está diseñado para p
 experiencia fluida tanto para los clientes como para los administradores del comercio electrónico.
 
 ## Modelo de negocio
-1. **Gestión de Clientes y Empleados**:La base de datos permite registrar la información de los clientes que realizan compras, así como de los empleados involucrados en el proceso de ventas, como los encargados de almacén o atención al cliente.
+1. **Gestión de Clientes y Empleados**: La base de datos permite registrar la información de los clientes que realizan compras, así como de los empleados involucrados en el proceso de ventas, como los encargados de almacén o atención al cliente.
 
 2. **Gestión de Productos y Categorías**: Es importante clasificar los productos según su tipo, categoría o marca para organizar mejor la oferta y facilitar la búsqueda de los clientes. Esto incluye mantener un registro actualizado de los productos disponibles, su descripción, precio y cantidad en stock.
 
@@ -190,7 +190,88 @@ FROM vista_ventas_mensuales;
 SELECT * FROM vista_empleados_por_tienda;
 ```
 
+### Vista: vista_transacciones_pendientes
 
+**Descripción:** Esta vista proporciona información sobre las órdenes de venta pendientes en el sistema, incluyendo el ID de la orden, el correo electrónico del usuario que realizó la orden, la fecha en que se creó la orden y el estado de la orden, donde "pendiente" indica que la orden aún no ha sido completada.
+**Columnas:*** 
+* **ID_ORDEN:** El ID único de la orden de venta.
+* **USUARIO:** El correo electrónico del usuario que realizó la orden.
+* **FECHA_ORDEN:** La fecha en que se creó la orden.
+* **ESTADO:** El estado de la orden, donde "pendiente" indica que la orden aún no ha sido completada.
+
+```sql
+SELECT * FROM vista_transacciones_pendientes;
+```
+
+### Vista: vista_stock_por_tienda
+
+**Descripción:** Esta vista proporciona información sobre la cantidad de productos disponibles en cada tienda.
+**Columnas:*** 
+* **TIENDA:** El nombre de la tienda.
+* **CANTIDAD_PRODUCTOS:** La cantidad de productos disponibles en la tienda.
+
+```sql
+SELECT * FROM vista_transacciones_pendientes;
+```
+
+## Documentación de Funciones
+
+### Función: calcular_precio_descuento
+
+**Descripción:** Esta función calcula el precio de un producto después de aplicar un descuento.
+
+**Parámetros:**
+
+* **precio_base:** El precio original del producto.
+* **descuento:** El descuento a aplicar al precio base, en porcentaje.
+
+**Retorno:**
+
+* **Entero:** El precio final del producto después de aplicar el descuento.
+
+**Ejemplo de uso:**
+
+```sql
+SELECT calcular_precio_descuento(100, 20);
+```
+
+### Función: calcular_total_carrito
+
+**Descripción:** Esta función calcula el precio total de un carrito sumando el precio de todos los productos en él.
+
+**Parámetros:**
+
+* **id_carrito:** El ID del carrito del que se desea calcular el precio total.
+
+**Retorno:**
+
+* **Entero:** El precio total del carrito.
+
+**Ejemplo de uso:**
+
+```sql
+SELECT calcular_total_carrito(1001);
+```
+
+### Función: cantidad_orden_de_venta_usuario
+
+**Descripción:** Esta función cuenta el número de órdenes de venta realizadas por un cliente dentro de un período de tiempo específico.
+
+**Parámetros:**
+
+* **usuario_id:**  El ID del cliente del que se desean contar las órdenes de venta.
+* **fecha_inicio:**  La fecha de inicio del período de tiempo para el conteo de órdenes de venta.
+* **fecha_fin:** La fecha de fin del período de tiempo para el conteo de órdenes de venta.
+
+**Retorno:**
+
+* **Entero:** El número total de órdenes de venta realizadas por el cliente dentro del período de tiempo especificado.
+
+**Ejemplo de uso:**
+
+```sql
+SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
+```
 
 
 ## Roles y permisos
@@ -205,164 +286,3 @@ SELECT * FROM vista_empleados_por_tienda;
 * docker-compose.yml: Permite generar las bases de datos en forma de contenedores
 
 #### Pasos para arrancar el proyecto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Tabla `USUARIOS`
-
-- **Descripción**: Esta tabla almacena información sobre los usuarios del sistema.
-
-- **Atributos**: 
-  - `IDUSUARIO`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100) (Por defecto 'CLIENTE')
-  - `APELLIDO`: VARCHAR(100) (Por defecto 'GENERICO')
-  - `EMAIL`: VARCHAR(100) (No puede ser nulo)
-  - `DIRECCION`: VARCHAR(255)
-  - `TELEFONO`: VARCHAR(20)
-  - `CONTRASENIA`: VARCHAR(100)
-  - `TIPO_USUARIO`: VARCHAR(100)
-  - `FECHA_REGISTRO`: DATETIME
-  - `ULTIMO_ACCESO`: DATETIME
-
----
-
-## Tabla `PRODUCTOS`
-
-- **Descripción**: Esta tabla almacena información sobre los productos disponibles en el sistema.
-
-- **Atributos**: 
-  - `IDPRODUCTO`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100)
-  - `PRECIO`: INT
-  - `IDCATEGORIA`: INT (Clave foránea que hace referencia a la tabla CATEGORIAS)
-  - `IDSUBCATEGORIA`: INT (Clave foránea que hace referencia a la tabla SUBCATEGORIAS)
-  - `IDTIENDA`: INT (Clave foránea que hace referencia a la tabla TIENDAS)
-  - `DETALLE`: VARCHAR(100)
-  - `CANTIDAD`: INT
-  - `STOCK`: BOOLEAN
-  - `FECHA_AGREGADO`: DATETIME
-  - `IMAGENES`: VARCHAR(100)
-
----
-
-## Tabla `CARRITO`
-
-- **Descripción**: Esta tabla almacena información sobre los carritos de compras de los usuarios.
-
-- **Atributos**: 
-  - `IDCARRITO`: INT (Clave primaria, autoincremental)
-  - `IDUSUARIO`: INT (Clave foránea que hace referencia a la tabla USUARIOS)
-  - `FECHA_CREACION`: DATETIME
-  - `ESTADO`: BOOLEAN
-
----
-
-## Tabla `EMPLEADOS`
-
-- **Descripción**: Esta tabla almacena información sobre los empleados de la tienda.
-
-- **Atributos**: 
-  - `IDEMPLEADO`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100)
-  - `APELLIDO`: VARCHAR(100)
-  - `IDTIENDA`: INT (Clave foránea que hace referencia a la tabla TIENDAS)
-  - `PUESTO`: VARCHAR(100)
-  - `SUELDO`: INT
-  - `EMAIL`: VARCHAR(100) (Único, no puede ser nulo)
-  - `TELEFONO`: VARCHAR(100) (No puede ser nulo)
-  - `FECHA_CONTRATACION`: DATETIME
-
----
-
-## Tabla `TIENDAS`
-
-- **Descripción**: Esta tabla almacena información sobre las tiendas en el sistema.
-
-- **Atributos**: 
-  - `IDTIENDA`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100)
-  - `DIRECCION`: VARCHAR(255)
-  - `EMAIL`: VARCHAR(100) (Único, no puede ser nulo)
-  - `TELEFONO`: VARCHAR(100) (No puede ser nulo)
-
----
-
-## Tabla `TRN`
-
-- **Descripción**: Esta tabla almacena información sobre los traspasos de productos entre tiendas.
-
-- **Atributos**: 
-  - `IDTRN`: INT (Clave primaria, autoincremental)
-  - `IDPRODUCTO`: INT
-  - `IDTIENDA_ORIGEN`: INT
-  - `IDTIENDA_DESTINO`: INT
-  - `CANTIDAD`: INT
-  - `FECHA_TRN`: DATETIME
-  - `OBSERVACIONES`: VARCHAR(100)
-
----
-
-## Tabla `CATEGORIAS`
-
-- **Descripción**: Esta tabla almacena información sobre las categorías de productos.
-
-- **Atributos**: 
-  - `IDCATEGORIA`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100)
-
----
-
-## Tabla `SUBCATEGORIAS`
-
-- **Descripción**: Esta tabla almacena información sobre las subcategorías de productos, relacionadas con las categorías.
-
-- **Atributos**: 
-  - `IDSUBCATEGORIA`: INT (Clave primaria, autoincremental)
-  - `NOMBRE`: VARCHAR(100)
-  - `IDCATEGORIA`: INT (Clave foránea que hace referencia a la tabla CATEGORIAS)
-
----
-
-## Tabla `ORDENESDEVENTA`
-
-- **Descripción**: Esta tabla almacena información sobre las órdenes de venta realizadas por los usuarios.
-
-- **Atributos**: 
-  - `IDORDEN`: INT (Clave primaria, autoincremental)
-  - `IDUSUARIO`: INT (Clave foránea que hace referencia a la tabla USUARIOS)
-  - `FECHA_CREACION`: DATETIME
-  - `ESTADO`: VARCHAR(100)
-  - `DIRECCION_ENVIO`: VARCHAR(255)
-  - `IDCARRITO`: INT (Clave foránea que hace referencia a la tabla CARRITO)
