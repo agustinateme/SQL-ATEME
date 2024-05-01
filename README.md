@@ -394,6 +394,14 @@ CALL realizar_pedido(1, '456 Oak St');
 ```
 
 ## Roles y permisos
+`./objects/roles_users.sql`
+
+Se genera tres roles:
+
+1. `role_select_vistas`: Este rol tiene permisos solo para SELECT en las vistas.
+2. `role_crud_tiendas`: Este rol tiene permisos para generar CRUD en las tablas relacionadas con tiendas.
+3. `role_creacion_usuarios`: Este rol tiene permisos para crear y eliminar usuarios.
+
 
 ## Back up de la base de datos
 
