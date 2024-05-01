@@ -3,8 +3,91 @@
 </center>
 
 
-# SQL-ATEME
-Esta base de datos almacena información relacionada con un sistema de gestión de ventas y tiendas en línea. A continuación se detallan las tablas y sus atributos:
+# <center>Entrega de proyecto final SQL</center>
+Alumno: Agustina Teme
+Comisión: 53175
+
+
+---
+
+## Tematica del proyecto
+Este proyecto se centra en el desarrollo de un sistema integral de gestión para un comercio
+electrónico llamado "EcomDB". La temática abarca todos los aspectos relacionados 
+con la operación de una plataforma de ventas en línea, desde la gestión de productos y usuarios 
+hasta la administración de pedidos y envíos. El sistema está diseñado para proporcionar una 
+experiencia fluida tanto para los clientes como para los administradores del comercio electrónico.
+
+## Modelo de negocio
+1. **Gestión de Clientes y Empleados**:La base de datos permite registrar la información de los clientes que realizan compras, así como de los empleados involucrados en el proceso de ventas, como los encargados de almacén o atención al cliente.
+
+2. **Gestión de Productos y Categorías**: Es importante clasificar los productos según su tipo, categoría o marca para organizar mejor la oferta y facilitar la búsqueda de los clientes. Esto incluye mantener un registro actualizado de los productos disponibles, su descripción, precio y cantidad en stock.
+
+3. **Gestión de Carrito de Compras**: La base de datos permite a los clientes agregar productos a su carrito de compras mientras navegan por la plataforma. Esto requiere un sistema que registre los productos seleccionados, su cantidad y su asociación con el usuario que realiza la compra.
+
+4. **Registro de Órdenes de Venta**: Al realizar una compra, se genera una orden de venta que registra los detalles de la transacción, incluyendo el cliente que realiza la compra, la fecha y hora de la compra, los productos adquiridos, la dirección de envío y el estado del pedido.
+
+5. **Gestión de Transacciones**: Es necesario registrar todas las transacciones realizadas, incluyendo la fecha, los productos involucrados, la cantidad y las tiendas de origen y destino, si corresponde.
+
+6. **Gestión de Empleados y Tiendas**: Se requiere gestionar la información de los empleados de las tiendas, incluyendo su puesto, sueldo y fecha de contratación, así como la información de las tiendas, como su nombre, dirección y contacto.
+
+
+## Diagrama entidad relacion (DER)
+<center>
+<img src="./Der.png" style="width: 100% ;>
+</center>
+
+## Listado de tablas y descripcion
+
+## Estructura e ingesta de datos
+
+## Objetos de la base de datos
+
+## Roles y permisos
+
+## Back up de la base de datos
+
+## Herramientas y tecnologias usadas
+
+## Como levantar el proyecto en CodeSpaces GitHub
+* env: Archivo con contraseñas y data secretas
+* Makefile: Abstracción de creacción del proyecto
+* docker-compose.yml: Permite generar las bases de datos en forma de contenedores
+
+#### Pasos para arrancar el proyecto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Tabla `USUARIOS`
 
