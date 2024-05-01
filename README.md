@@ -37,6 +37,31 @@ experiencia fluida tanto para los clientes como para los administradores del com
 </center>
 
 ## Listado de tablas y descripcion
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| USUARIOS      | IDUSUARIO          | INT                                   |
+|               | NOMBRE             | VARCHAR(100) DEFAULT 'CLIENTE'        |
+|               | APELLIDO           | VARCHAR(100) DEFAULT 'GENERICO'       |
+|               | EMAIL              | VARCHAR(100) UNIQUE NOT NULL          |
+|               | DIRECCION          | VARCHAR(255)                          |
+|               | TELEFONO           | VARCHAR(100) NOT NULL                 |
+|               | CONTRASEÑA         | VARCHAR(100)                          |
+|               | TIPO_USUARIO       | VARCHAR(100)                          |
+|               | FECHA_REGISTRO     | DATETIME                              |
+|               | ULTIMO_ACCESO      | DATETIME                              |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| EMPLEADO      | IDEMPLEADO         | INT                                   |
+|               | NOMBRE             | VARCHAR(100)                          |
+|               | APELLIDO           | VARCHAR(100)                          |
+|               | IDTIENDA           | INT                                   |
+|               | PUESTO             | VARCHAR(100)                          |
+|               | EMAIL              | VARCHAR(100) UNIQUE NOT NULL          |
+|               | TELEFONO           | VARCHAR(100) NOT NULL                 |
+|               | FECHA_CONTRATACION | DATETIME                              |
+
 
 ## Estructura e ingesta de datos
 
