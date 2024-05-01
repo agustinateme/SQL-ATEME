@@ -39,7 +39,7 @@ experiencia fluida tanto para los clientes como para los administradores del com
 ## Listado de tablas y descripcion
 | Tabla         | Columna            | Tipo de Datos                         |
 | ------------- | ------------------ |                                  ---: |
-| USUARIOS      | IDUSUARIO          | INT                                   |
+| USUARIO       | IDUSUARIO          | INT                                   |
 |               | NOMBRE             | VARCHAR(100) DEFAULT 'CLIENTE'        |
 |               | APELLIDO           | VARCHAR(100) DEFAULT 'GENERICO'       |
 |               | EMAIL              | VARCHAR(100) UNIQUE NOT NULL          |
@@ -53,19 +53,96 @@ experiencia fluida tanto para los clientes como para los administradores del com
 
 | Tabla         | Columna            | Tipo de Datos                         |
 | ------------- | ------------------ |                                  ---: |
+| PRODUCTO      | IDPRODUCTO         | INT                                   |
+|               | NOMBRE             | VARCHAR(100)                          |
+|               | PRECIO             | INT                                   |
+|               | IDCATEGORIA        | INT                                   |
+|               | IDSUBCATEGORIA     | INT                                   |
+|               | IDTIENDA           | INT                                   |
+|               | DETALLE            | VARCHAR(100)                          |
+|               | CANTIDAD           | INT                                   |
+|               | STOCK              | BOOLEAN                               |
+|               | FECHA_AGREGADO     | DATETIME                              |
+|               | IMAGENES           | VARCHAR(100)                          |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| CARRITO       | IDCARRITO          | INT                                   |
+|               | IDUSUARIO          | INT                                   |
+|               | FECHA_CREACION     | DATETIME                              |
+|               | ESTADO             | BOOLEAN                               |
+
+
+| Tabla           | Columna            | Tipo de Datos                         |
+| --------------- | ------------------ |                                  ---: |
+| DETALLE_CARRITO | IDCARRITO          | INT                                   |
+|                 | IDPRODUCTO         | INT                                   |
+|                 | CANTIDAD           | INT                                   |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
 | EMPLEADO      | IDEMPLEADO         | INT                                   |
 |               | NOMBRE             | VARCHAR(100)                          |
 |               | APELLIDO           | VARCHAR(100)                          |
 |               | IDTIENDA           | INT                                   |
 |               | PUESTO             | VARCHAR(100)                          |
+|               | SUELDO             | INT                                   |
 |               | EMAIL              | VARCHAR(100) UNIQUE NOT NULL          |
 |               | TELEFONO           | VARCHAR(100) NOT NULL                 |
 |               | FECHA_CONTRATACION | DATETIME                              |
 
 
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| TIENDA        | IDTIENDA           | INT                                   |
+|               | NOMBRE             | VARCHAR(100)                          |
+|               | DIRECCION          | VARCHAR(255)                          |
+|               | EMAIL              | VARCHAR(100) UNIQUE NOT NULL          |
+|               | TELEFONO           | VARCHAR(100) NOT NULL                 |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| TRN           | IDTRN              | INT                                   |
+|               | IDPRODUCTO         | INT                                   |
+|               | IDTIENDA_ORIGEN    | INT                                   |
+|               | IDTIENDA_DESTINO   | INT                                   |
+|               | CANTIDAD           | INT                                   |
+|               | FECHA_TRN          | DATETIME                              |
+|               | OBSERVACIONES      | VARCHAR(100)                          |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| CATEGORIA     | IDCATEGORIA | INT |
+|               | NOMBRE | VARCHAR(100)    |
+
+
+| Tabla         | Columna            | Tipo de Datos                         |
+| ------------- | ------------------ |                                  ---: |
+| SUBCATEGORIA  | IDSUBCATEGORIA     | INT                                   |
+|               | NOMBRE             | VARCHAR(100)                          |
+|               | IDCATEGORIA        | INT                                   |
+
+
+| Tabla          | Columna            | Tipo de Datos                         |
+| -------------- | ------------------ |                                  ---: |
+| ORDENDEVENTA   | IDORDEN            | INT                                   |
+|                | IDUSUARIO          | INT                                   |
+|                | FECHA_CREACION     | DATETIME                              |
+|                | ESTADO             | BOOLEAN                               |
+|                | DIRECCION_ENVIO    | VARCHAR(255)                          |
+|                | IDCARRITO          | INT                                   |
+
 ## Estructura e ingesta de datos
+* Se realiza principalmente por medio del archivo population.sql
+* La carga de la tabla orden de venta se realiza por medio de un csv colocado en el directorio ./structure/data-csv
 
 ## Objetos de la base de datos
+### Documentacion de Vistas
+### Vista: 
 
 ## Roles y permisos
 
