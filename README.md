@@ -285,7 +285,8 @@ SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
 * **Acción:** INSERT (Después de cada inserción en la tabla DETALLE_CARRITO, este trigger se activa para actualizar el stock del producto correspondiente en la tabla PRODUCTO.)
 * **Información registrada:** No se registra información adicional en otra tabla. El trigger actualiza directamente el stock del producto en la tabla PRODUCTO.
 
-**Ejemplo:** Supongamos que tenemos un producto en la tabla PRODUCTO con IDPRODUCTO igual a 1 y una cantidad inicial de 10 unidades en stock. Ahora, un cliente agrega 2 unidades de ese producto a su carrito.
+**Ejemplo:** 
+Supongamos que tenemos un producto en la tabla PRODUCTO con IDPRODUCTO igual a 1 y una cantidad inicial de 10 unidades en stock. Ahora, un cliente agrega 2 unidades de ese producto a su carrito.
 Antes de que el cliente agregue el producto al carrito:
 *Stock del producto con IDPRODUCTO igual a 1: 10 unidades
 Después de que el cliente agregue el producto al carrito:
