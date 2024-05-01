@@ -136,13 +136,62 @@ experiencia fluida tanto para los clientes como para los administradores del com
 |                | DIRECCION_ENVIO    | VARCHAR(255)                          |
 |                | IDCARRITO          | INT                                   |
 
+
 ## Estructura e ingesta de datos
 * Se realiza principalmente por medio del archivo population.sql
 * La carga de la tabla orden de venta se realiza por medio de un csv colocado en el directorio ./structure/data-csv
 
 ## Objetos de la base de datos
+
+
 ### Documentacion de Vistas
-### Vista: 
+### Vista: vista_productos_agotados
+
+**Descripción:** Esta vista muestra todos los productos que están actualmente agotados en la tienda
+
+**Columnas:**
+* **IDPRODUCTO:** Identificador único de producto 
+* **NOMBRE:** Nombre del producto
+* **STOCK:** false porque está agotado
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * FROM vista_productos_agotados;
+```
+
+### Vista: vista_ventas_mensuales
+
+**Descripción:** Esta vista muestra el monto total de ventas por mes basado en los productos comprados en cada orden. 
+
+**Columnas:**
+* **MES:** Representa el mes en el que se realizaron las ventas.
+* **VENTAS:** Representa el monto total de ventas en cada mes.
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT MES, VENTAS
+FROM vista_ventas_mensuales;
+```
+
+### Vista: vista_empleados_por_tienda
+
+**Descripción:** Esta vista muestra una lista de todos los empleados agrupados por tienda.
+**Columnas:**
+* **TIENDA:** Nombre de la tienda a la que pertenece el empleado.
+* **NOMBRE:** Nombre del empleado.
+* **APELLIDO:** Apellido del empleado.
+* **PUESTO:** Puesto que ocupa el empleado en la tienda.
+
+**Ejemplo de consulta:**
+
+```sql
+SELECT * FROM vista_empleados_por_tienda;
+```
+
+
+
 
 ## Roles y permisos
 
