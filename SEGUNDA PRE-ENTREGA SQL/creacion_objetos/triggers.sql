@@ -1,4 +1,4 @@
-USE TRINITY_ECOMMERCE;
+USE ECOMDB;
 
 DELIMITER //
 --  Este trigger actualiza el stock de un producto cuando se agrega al carrito.
