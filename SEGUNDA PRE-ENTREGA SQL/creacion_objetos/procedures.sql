@@ -12,7 +12,7 @@ CREATE PROCEDURE registrar_usuario (
     IN tipo_usuario VARCHAR(100)
 )
 BEGIN
-    INSERT INTO USUARIOS (NOMBRE, APELLIDO, EMAIL, DIRECCION, TELEFONO, CONTRASENIA, TIPO_USUARIO, FECHA_REGISTRO, ULTIMO_ACCESO)
+    INSERT INTO USUARIO (NOMBRE, APELLIDO, EMAIL, DIRECCION, TELEFONO, CONTRASENIA, TIPO_USUARIO, FECHA_REGISTRO, ULTIMO_ACCESO)
     VALUES (nombre_usuario, apellido_usuario, email_usuario, direccion_usuario, telefono_usuario, contrasenia_usuario, tipo_usuario, NOW(), NOW());
 END;//
 DELIMITER ;
@@ -44,7 +44,7 @@ BEGIN
     -- Obtener ID del carrito del usuario
     SELECT IDCARRITO INTO id_carrito FROM CARRITO WHERE IDUSUARIO = id_usuario AND ESTADO = TRUE;
     -- Crear orden de venta
-    INSERT INTO ORDENESDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO) VALUES (id_usuario, NOW(), 'Pedido realizado', direccion_envio, id_carrito);
+    INSERT INTO ORDENDEVENTA (IDUSUARIO, FECHA_CREACION, ESTADO, DIRECCION_ENVIO, IDCARRITO) VALUES (id_usuario, NOW(), true, direccion_envio, id_carrito);
     -- Cambiar estado del carrito
     UPDATE CARRITO SET ESTADO = FALSE WHERE IDCARRITO = id_carrito;
 END;//

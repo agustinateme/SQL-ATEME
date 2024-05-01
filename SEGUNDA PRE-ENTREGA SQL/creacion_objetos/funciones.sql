@@ -15,8 +15,7 @@ DELIMITER //
 CREATE FUNCTION calcular_total_carrito(id_carrito INT) RETURNS INT
 BEGIN
     DECLARE total INT;
-    SELECT SUM(p.PRECIO * dc.CANTIDAD)
-    INTO total
+    SELECT SUM(p.PRECIO * dc.CANTIDAD) INTO total
     FROM DETALLE_CARRITO dc
     JOIN PRODUCTO p ON dc.IDPRODUCTO = p.IDPRODUCTO
     WHERE dc.IDCARRITO = id_carrito;
@@ -35,8 +34,8 @@ BEGIN
     SELECT COUNT(*) INTO orden_count
     FROM ORDENDEVENTA
     WHERE IDUSUARIO = usuario_id
-    AND FECHA >= fecha_inicio
-    AND FECHA <= fecha_fin;
+    AND FECHA_CREACION >= fecha_inicio
+    AND FECHA_CREACION <= fecha_fin;
 
 	RETURN orden_count;
 END //

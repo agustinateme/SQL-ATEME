@@ -1,42 +1,107 @@
 USE ECOMDB;
 
-DELIMITER //
---  Este trigger actualiza el stock de un producto cuando se agrega al carrito.
-CREATE TRIGGER actualizar_stock_al_agregar_producto
-AFTER INSERT ON DETALLE_CARRITO
-FOR EACH ROW
-BEGIN
-    DECLARE cantidad_stock INT;
-    -- Obtener la cantidad actual de stock del producto
-    SELECT CANTIDAD INTO cantidad_stock FROM PRODUCTOS WHERE IDPRODUCTO = NEW.IDPRODUCTO;
-    -- Actualizar el stock del producto
-    UPDATE PRODUCTOS SET CANTIDAD = cantidad_stock - NEW.CANTIDAD WHERE IDPRODUCTO = NEW.IDPRODUCTO;
-END;
-DELIMITER ;
+CREATE TABLE HISTORIAL_ORDEN_VENTA (
+    ID_HISTORIAL INT PRIMARY KEY AUTO_INCREMENT,
+    IDORDEN INT,
+    ESTADO_ANTERIOR VARCHAR(100),
+    ESTADO_ACTUAL VARCHAR(100),
+    FECHA_CAMBIO DATETIME,
+    FOREIGN KEY (IDORDEN) REFERENCES ORDENDEVENTA(IDORDEN)
+);
 
 DELIMITER //
--- Este trigger actualiza el total del carrito cuando se modifica la cantidad de un producto en el carrito.
-CREATE TRIGGER actualizar_total_carrito
-AFTER UPDATE ON DETALLE_CARRITO
+CREATE TRIGGER actualizar_cantidad_producto
+AFTER INSERT ON ORDENDEVENTA
 FOR EACH ROW
 BEGIN
-    DECLARE nuevo_total INT;
-    -- Calcular el nuevo total del carrito
-    SELECT SUM(PRECIO * NEW.CANTIDAD) INTO nuevo_total FROM PRODUCTOS WHERE IDPRODUCTO = NEW.IDPRODUCTO;
-    -- Actualizar el total del carrito
-    UPDATE CARRITO SET TOTAL = nuevo_total WHERE IDCARRITO = NEW.IDCARRITO;
-END;
-
+    DECLARE cantidad_producto INT;
+    DECLARE mensaje VARCHAR(255);
+    
+    -- Obtenemos la cantidad del producto
+    SELECT p.CANTIDAD INTO cantidad_producto
+    FROM PRODUCTO p
+    JOIN DETALLE_CARRITO dc ON p.IDPRODUCTO = dc.IDPRODUCTO
+    WHERE dc.IDCARRITO = NEW.IDCARRITO;
+    
+    -- Verificamos si la orden de venta fue realizada y el producto tiene stock
+    IF NEW.ESTADO = 'true' THEN
+        IF cantidad_producto >= NEW.CANTIDAD THEN
+            -- Actualizamos la cantidad del producto
+            UPDATE PRODUCTO
+            SET CANTIDAD = CANTIDAD - NEW.CANTIDAD
+            WHERE IDPRODUCTO = (SELECT IDPRODUCTO FROM DETALLE_CARRITO WHERE IDCARRITO = NEW.IDCARRITO);
+        ELSE
+            SET mensaje = CONCAT('No hay suficiente stock del producto ', (SELECT IDPRODUCTO FROM DETALLE_CARRITO WHERE IDCARRITO = NEW.IDCARRITO));
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = mensaje;
+        END IF;
+    ELSE
+        SET mensaje = 'La orden de venta no se realizó.';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = mensaje;
+    END IF;
+END
+//
 DELIMITER ;
+
 
 DELIMITER //
 -- Este trigger registra los cambios en el estado de las órdenes de venta en un historial.
 CREATE TRIGGER registro_cambios_orden_venta
-AFTER UPDATE ON ORDENESDEVENTA
+AFTER UPDATE ON ORDENDEVENTA
 FOR EACH ROW
 BEGIN
-    INSERT INTO HISTORIAL_ORDENES_VENTA (IDORDEN, ESTADO_ANTERIOR, ESTADO_ACTUAL, FECHA_CAMBIO)
+    INSERT INTO HISTORIAL_ORDEN_VENTA (IDORDEN, ESTADO_ANTERIOR, ESTADO_ACTUAL, FECHA_CAMBIO)
     VALUES (NEW.IDORDEN, OLD.ESTADO, NEW.ESTADO, NOW());
-END;
+END; 
+//
+DELIMITER ;
 
+-- Triggers para actualizar el total de un carrito, después de una inserción, eliminación y actualización en la tabla DETALLE_CARRITO
+DELIMITER //
+-- Trigger para INSERT
+CREATE TRIGGER after_insert_detalle_carrito
+AFTER INSERT ON DETALLE_CARRITO
+FOR EACH ROW
+BEGIN
+    UPDATE CARRITO
+    SET TOTAL = (
+        SELECT COALESCE(SUM(PRODUCTO.PRECIO * DETALLE_CARRITO.CANTIDAD), 0)
+        FROM DETALLE_CARRITO
+        INNER JOIN PRODUCTO ON DETALLE_CARRITO.IDPRODUCTO = PRODUCTO.IDPRODUCTO
+        WHERE DETALLE_CARRITO.IDCARRITO = NEW.IDCARRITO
+    )
+    WHERE IDCARRITO = NEW.IDCARRITO;
+END;
+//
+
+-- Trigger para DELETE
+CREATE TRIGGER after_delete_detalle_carrito
+AFTER DELETE ON DETALLE_CARRITO
+FOR EACH ROW
+BEGIN
+    UPDATE CARRITO
+    SET TOTAL = (
+        SELECT COALESCE(SUM(PRODUCTO.PRECIO * DETALLE_CARRITO.CANTIDAD), 0)
+        FROM DETALLE_CARRITO
+        INNER JOIN PRODUCTO ON DETALLE_CARRITO.IDPRODUCTO = PRODUCTO.IDPRODUCTO
+        WHERE DETALLE_CARRITO.IDCARRITO = OLD.IDCARRITO
+    )
+    WHERE IDCARRITO = OLD.IDCARRITO;
+END;
+//
+
+-- Trigger para UPDATE
+CREATE TRIGGER after_update_detalle_carrito
+AFTER UPDATE ON DETALLE_CARRITO
+FOR EACH ROW
+BEGIN
+    UPDATE CARRITO
+    SET TOTAL = (
+        SELECT COALESCE(SUM(PRODUCTO.PRECIO * DETALLE_CARRITO.CANTIDAD), 0)
+        FROM DETALLE_CARRITO
+        INNER JOIN PRODUCTO ON DETALLE_CARRITO.IDPRODUCTO = PRODUCTO.IDPRODUCTO
+        WHERE DETALLE_CARRITO.IDCARRITO = NEW.IDCARRITO
+    )
+    WHERE IDCARRITO = NEW.IDCARRITO;
+END;
+//
 DELIMITER ;

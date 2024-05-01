@@ -72,6 +72,7 @@ experiencia fluida tanto para los clientes como para los administradores del com
 |               | IDUSUARIO          | INT                                   |
 |               | FECHA_CREACION     | DATETIME                              |
 |               | ESTADO             | BOOLEAN                               |
+|               | TOTAL              | INT                                   |
 
 
 | Tabla           | Columna            | Tipo de Datos                         |
@@ -291,6 +292,20 @@ SELECT cantidad_orden_de_venta_usuario(12345, '2024-01-01', '2024-03-31');
 * **Después de que el cliente agregue el producto al carrito:** Stock del producto con IDPRODUCTO igual a 1: 8 unidades (10 - 2)
  
 
+### Trigger: actualizar_total_carrito
+
+**Descripción:** Este trigger actualiza el total del carrito cuando se modifica la cantidad de un producto en el carrito.
+
+**Detalles:**
+
+* **Tabla afectada:** CARRITO
+* **Acción:** UPDATE (Después de cada actualización en la tabla DETALLE_CARRITO, este trigger se activa para recalcular y actualizar el total del carrito correspondiente en la tabla CARRITO.)
+* **Información registrada:** 
+
+**Ejemplo:** 
+* ****
+* **** 
+ 
 
 
 ## Roles y permisos
