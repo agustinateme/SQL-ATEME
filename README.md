@@ -4,8 +4,8 @@
 
 
 # <center>Entrega de proyecto final SQL</center>
-Alumno: Agustina Teme
-Comisión: 53175
+@Alumna: Agustina Teme
+@Comisión: 53175
 
 
 ---
@@ -33,7 +33,7 @@ experiencia fluida tanto para los clientes como para los administradores del com
 
 ## Diagrama entidad relacion (DER)
 <center>
-<img src="./Der.png" style="width: 100% ;>
+<img src="./Der.png" style="width: 100%">
 </center>
 
 ## Listado de tablas y descripcion
