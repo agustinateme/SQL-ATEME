@@ -1,4 +1,4 @@
-USE TRINITY_ECOMMERCE;
+USE ECOMDB;
 -- mysql -u username -p --local-infile=1
 
 SET GLOBAL local_infile = true;
